@@ -46,7 +46,7 @@ def test_normalize_column_with_error_handling(sample_df: pd.DataFrame, col: str,
     """Test the normalize_column function with parameterized columns, including error handling."""
     df = sample_df.copy()
     if err:
-        with pytest.raises(TypeError):
+        with pytest.raises(TypeError): # match=f"Column {col} must hold numeric values."
             normalize_column(df, col)
     else:
         result_df = normalize_column(df, col)
