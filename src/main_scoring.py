@@ -27,7 +27,7 @@ def get_database_connection():
     )
     return conn
 
-def get_data_from_db(query):
+def get_data_from_db(query: str) -> pd.DataFrame:
     """
     Retrieves data from the database based on the provided query.
     """
@@ -43,7 +43,7 @@ def get_data_from_db(query):
     conn.close()
     return df
 
-def get_model_from_registry(model_name, environment, version):
+def get_model_from_registry(model_name: str, environment: str, version: str) -> object:
     """
     Retrieves the model from a model registry.
     For simplicity, we simulate the registry with a local file system.
@@ -56,14 +56,14 @@ def get_model_from_registry(model_name, environment, version):
         model = pickle.load(f)
     return model
 
-def generate_predictions(model, data):
+def generate_predictions(model: object, data: pd.DataFrame) -> pd.Series:
     """
     Generates predictions using the provided model and data.
     """
     predictions = model.predict(data)
     return predictions
 
-def upload_results_to_s3(df, bucket_name, s3_key):
+def upload_results_to_s3(df: pd.DataFrame, bucket_name: str, s3_key: str) -> None:
     """
     Uploads the DataFrame as a CSV to an S3 bucket.
     """
@@ -71,7 +71,7 @@ def upload_results_to_s3(df, bucket_name, s3_key):
     s3 = boto3.client('s3')
     s3.put_object(Bucket=bucket_name, Key=s3_key, Body=csv_buffer)
 
-def insert_results_to_db(df, table_name):
+def insert_results_to_db(df: pd.DataFrame, table_name: str) -> None:
     """
     Inserts the results into a database table.
     """
