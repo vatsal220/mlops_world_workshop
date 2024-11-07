@@ -13,11 +13,11 @@ def normalize_column(df: pd.DataFrame, column_name: str) -> pd.DataFrame:
     """
     min_val = df[column_name].min()
     max_val = df[column_name].max()
-    df[column_name + '_normalized'] = (df[column_name] - min_val) / (max_val - min_val)
-    # try:
-    #     df[column_name + '_normalized'] = (df[column_name] - min_val) / (max_val - min_val)
-    # except TypeError as e:
-    #     raise TypeError(f"Column {column_name} must hold numeric values.") from e
+    # df[column_name + '_normalized'] = (df[column_name] - min_val) / (max_val - min_val)
+    try:
+        df[column_name + '_normalized'] = (df[column_name] - min_val) / (max_val - min_val)
+    except TypeError as e:
+        raise TypeError(f"Column {column_name} must hold numeric values.") from e
     return df
 
 
