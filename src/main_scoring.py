@@ -15,6 +15,7 @@ def get_database_connection():
     trino_host = os.getenv('TRINO_HOST', 'localhost')
     trino_port = int(os.getenv('TRINO_PORT', 8080))
     trino_user = os.getenv('TRINO_USER', 'user')
+    trino_pass = os.getenv('TRINO_PASS', 'password')
     trino_catalog = os.getenv('TRINO_CATALOG', 'hive')
     trino_schema = os.getenv('TRINO_SCHEMA', 'default')
 
@@ -22,15 +23,14 @@ def get_database_connection():
         host=trino_host,
         port=trino_port,
         user=trino_user,
+        password=trino_pass,
         catalog=trino_catalog,
         schema=trino_schema,
     )
     return conn
 
 def get_data_from_db(query: str) -> pd.DataFrame:
-    """
-    Retrieves data from the database based on the provided query.
-    """
+    """Retrieves data from the database based on the provided query."""
     conn = get_database_connection()
     cursor = conn.cursor()
     cursor.execute(query)

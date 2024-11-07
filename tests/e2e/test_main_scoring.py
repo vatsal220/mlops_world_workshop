@@ -38,7 +38,7 @@ class TestScoring(unittest.TestCase):
         mock_cursor.close.assert_called_once()
         mock_conn.close.assert_called_once()
 
-    @patch('builtins.open')
+    @patch('builtins.open') # patches opening a file
     @patch('src.main_scoring.pickle.load')
     def test_get_model_from_registry(self, mock_pickle_load, mock_open):
         # Mock model loading
